@@ -9,10 +9,13 @@ const path =require("path");
 app.set("view engine","ejs");
 app.use(express.static(path.join(__dirname,"public")));
 io.on("connecton",function(socket){
+    socket.on("send-location",function(data){
+        io.emit("new connected",{id:socket.id, ...data});
+    });
     console.log("new user connected");
  });
 app.get("/",function(req,res){
     res.render("index");
 }); 
 
-server.listen(8000);
+server.listen(3000);
